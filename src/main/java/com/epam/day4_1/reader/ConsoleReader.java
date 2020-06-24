@@ -1,6 +1,6 @@
-package com.epam.day4.task1.reader;
+package com.epam.day4_1.reader;
 
-import com.epam.day4.task1.exception.CustomException;
+import com.epam.day4_1.exception.CustomException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,15 +11,9 @@ public class ConsoleReader {
     private final String REGEX = " ";
 
     public String[] readNumbersFromConsole() throws CustomException {
-        BufferedReader reader = null;
-        String[] array = null;
-        String s = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
-            s = reader.readLine(); //TODO Can read only one line?
-            reader.close();
-            array = s.split(REGEX);
-            return array;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            String stringLine = reader.readLine();
+            return stringLine.split(REGEX);
         } catch (IOException e) {
             throw new CustomException("incorrect input data", e);
         }

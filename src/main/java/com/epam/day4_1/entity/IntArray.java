@@ -1,10 +1,10 @@
-package com.epam.day4.task1.entity;
+package com.epam.day4_1.entity;
 
 public class IntArray {
 
     private Integer[] elements;
     private static final int DEFAULT_CAPACITY = 10;
-    private static final Integer[] EMPTY_ELEMENTS = {};
+    private static final Integer[] EMPTY_ELEMENTS = {};//TODO do in constructor
 
     public IntArray() {
         this.elements = new Integer[DEFAULT_CAPACITY];
@@ -13,37 +13,44 @@ public class IntArray {
     public IntArray(int capacity) {
         if (capacity > 0) {
             this.elements = new Integer[capacity];
-        } else if (capacity == 0) {
-            this.elements = EMPTY_ELEMENTS;
         } else {
-            throw new IllegalArgumentException("Illegal Capacity: " +
-                    capacity);//TODO can use unchecked exp here?
+            this.elements = new Integer[DEFAULT_CAPACITY];
         }
     }
 
+    public boolean add(Integer element) {
+        for (int i = 0; i < elements.length; i++) {
+            if (this.elements[i] == null) {
+                this.elements[i] = element;
+                return true;//TODO Can use boolean?
+            }
+        }
+        return false;
+    }
+
     public boolean set(int index, Integer element) {
-        if (index < elements.length) {
+        if (index < elements.length && index >= 0) {
             this.elements[index] = element;
             return true;
         } else {
-            return false;
+            return false;//TODO Can use boolean?
         }
     }
 
     public Integer getElement(int index) {
-        if (index < elements.length) {
+        if (index < elements.length && index >= 0) {
             return elements[index];
         } else {
-            throw new IndexOutOfBoundsException("index out Of bounds");//TODO can use unchecked exp here?
+            return -1; //TODO Can return -1?
         }
     }
 
     public boolean remove(int index) {
-        if (index < elements.length) {
+        if (index < elements.length && index >= 0) {
             this.elements[index] = null;
             return true;
         } else {
-            return false;
+            return false; //TODO Can use boolean?
         }
     }
 
@@ -64,8 +71,7 @@ public class IntArray {
         return false;
     }
 
-    // actual number Of not null elements in array
-    public int size() {
+    public int numberNotNullElements() {
         int count = 0;
         for (Integer element : elements) {
             if (element != null) {
@@ -75,34 +81,48 @@ public class IntArray {
         return count;
     }
 
-    // size of array include null elements
-    public int fullSize() {
+    public int size() {
         return elements.length;
     }
 
-    public boolean equals(Object[] o) { //TODO Can create equals without override?
-        if (this.elements == o) return true;
-        if (o == null || elements.getClass() != o.getClass()) return false;
+    @Override //TODO Can use 2 equals at once
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (elements.length != o.length) return false;
-        for (int i = 0; i < this.size(); i++) {
-            if (this.elements[i] != o[i]) {
+        IntArray intArray = (IntArray) o;
+
+        return equalsArray(elements, intArray.elements);
+    }
+
+    public boolean equalsArray(Object[] a, Object[] o) {
+        if (a == o)
+            return true;
+
+        if (o == null || a == null || a.getClass() != o.getClass())
+            return false;
+
+
+        if (a.length != o.length)
+            return false;
+
+        for (int i = 0; i < this.size(); i++)
+            if (!(a[i] == null ? o[i] == null : a[i].equals(o[i])))
                 return false;
-            }
-        }
+
         return true;
     }
 
     @Override
     public int hashCode() {
-        if (this.elements == null)
+        if (this.elements == null) {
             return 0;
-
+        }
         int result = 1;
 
-        for (Object element : elements)
+        for (Object element : elements) {
             result = 31 * result + (element == null ? 0 : element.hashCode());
-
+        }
         return result;
     }
 

@@ -1,4 +1,4 @@
-package com.epam.day4.task1.exception;
+package com.epam.day4_1.exception;
 
 public class CustomException extends Exception {
     public CustomException() {

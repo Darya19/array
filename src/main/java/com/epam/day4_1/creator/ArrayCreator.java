@@ -1,24 +1,26 @@
-package com.epam.day4.task1.creator;
+package com.epam.day4_1.creator;
 
-import com.epam.day4.task1.entity.IntArray;
-import com.epam.day4.task1.validator.NumberValidator;
+import com.epam.day4_1.entity.IntArray;
+import com.epam.day4_1.validator.NumberValidator;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class ArrayCreator {
 
-    private IntArray array;
-
     public IntArray fillUpRandom() {
         NumberValidator validator = new NumberValidator();
-        int number = 0;
         int count = 0;
-        array = new IntArray();//TODO is capacity necessary or use default capacity?
         Random random = new Random();
-       while(array.size() != array.fullSize()) {
-            number = random.nextInt();
+        int number = random.nextInt(10);
+        IntArray array = new IntArray(number);
+        while (array.size() > array.numberNotNullElements()) {
+            number = random.nextInt(1000);
             if (validator.validateNumber(number)) {
                 array.set(count, number);
+                count++;
             }
         }
         return array;
@@ -26,13 +28,15 @@ public class ArrayCreator {
 
     public IntArray fillUpFromReader(int... values) {
         NumberValidator validator = new NumberValidator();
-        array = new IntArray(values[0]); //TODO can use first number as a capacity?
-        for (int index = 1; index < values.length; index++) {
+       List<Integer> valuesForArray = new ArrayList<>();
+        for (int index = 0; index < values.length; index++) {
             if (validator.validateNumber(values[index])) {
-                array.set(index, values[index]);
-            } else {
-                index++;
+                valuesForArray.add(values[index]);
             }
+        }
+        IntArray array = new IntArray(valuesForArray.size());
+        for (int index = 0; index < valuesForArray.size(); index++) {
+                array.set(index, valuesForArray.get(index));
         }
         return array;
     }

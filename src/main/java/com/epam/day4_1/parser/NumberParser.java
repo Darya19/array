@@ -1,13 +1,19 @@
-package com.epam.day4.task1.parser;
+package com.epam.day4_1.parser;
+
+import com.epam.day4_1.exception.CustomException;
 
 public class NumberParser {
 
-    public int[] parseToInt(String... s) {
-        int[] values = null;
-        for (int index = 0; index < s.length; index++) {
-            int value = Integer.parseInt(s[index]);
-            values[index] = value;
+    public Integer[] parseToInt(String... stringNumbers) throws CustomException {
+        Integer[] values = new Integer[stringNumbers.length];
+        try {
+            for (int index = 0; index < stringNumbers.length; index++) {
+                int value = Integer.parseInt(stringNumbers[index]);
+                values[index] = value;
+            }
+            return values;
+        } catch (NumberFormatException e) {
+            throw new CustomException("parsing issues", e);
         }
-        return values;
     }
 }
