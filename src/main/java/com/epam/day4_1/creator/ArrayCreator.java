@@ -3,7 +3,6 @@ package com.epam.day4_1.creator;
 import com.epam.day4_1.entity.IntArray;
 import com.epam.day4_1.validator.NumberValidator;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -28,15 +27,15 @@ public class ArrayCreator {
 
     public IntArray fillUpFromReader(int... values) {
         NumberValidator validator = new NumberValidator();
-       List<Integer> valuesForArray = new ArrayList<>();
-        for (int index = 0; index < values.length; index++) {
-            if (validator.validateNumber(values[index])) {
-                valuesForArray.add(values[index]);
+        List<Integer> valuesForArray = new ArrayList<>();
+        for (int value : values) {
+            if (validator.validateNumber(value)) {
+                valuesForArray.add(value);
             }
         }
         IntArray array = new IntArray(valuesForArray.size());
         for (int index = 0; index < valuesForArray.size(); index++) {
-                array.set(index, valuesForArray.get(index));
+            array.set(index, valuesForArray.get(index));
         }
         return array;
     }

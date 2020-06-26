@@ -55,7 +55,8 @@ public class ArrayCreatorTest {
     @Test
     public void fillUpRandomAssertBordersTest() {
         IntArray actual = creator.fillUpRandom();
-        assertTrue(actual.getElement(0) >= 0 && actual.getElement(0) < 1000);
+        assertTrue(actual.getElement(0).getAsInt() >= 0
+                && actual.getElement(0).getAsInt() < 1000);
     }
 
     @Test(dataProvider = "creating")

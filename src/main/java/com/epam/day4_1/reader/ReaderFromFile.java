@@ -20,8 +20,7 @@ public class ReaderFromFile {
         }
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String stringLine = reader.readLine();
-            String[] array = stringLine.split(REGEX);
-            return array;
+            return stringLine.split(REGEX);
         } catch (IOException e) {
             throw new CustomException("reading issues", e);
         }

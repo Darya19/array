@@ -1,10 +1,12 @@
 package com.epam.day4_1.entity;
 
+import java.util.OptionalInt;
+
 public class IntArray {
 
     private Integer[] elements;
     private static final int DEFAULT_CAPACITY = 10;
-    private static final Integer[] EMPTY_ELEMENTS = {};//TODO do in constructor
+    private static final Integer[] EMPTY_ELEMENTS = {};
 
     public IntArray() {
         this.elements = new Integer[DEFAULT_CAPACITY];
@@ -14,7 +16,11 @@ public class IntArray {
         if (capacity > 0) {
             this.elements = new Integer[capacity];
         } else {
-            this.elements = new Integer[DEFAULT_CAPACITY];
+            if (capacity == 0) {
+                this.elements = EMPTY_ELEMENTS;
+            } else {
+                this.elements = new Integer[DEFAULT_CAPACITY];
+            }
         }
     }
 
@@ -22,7 +28,7 @@ public class IntArray {
         for (int i = 0; i < elements.length; i++) {
             if (this.elements[i] == null) {
                 this.elements[i] = element;
-                return true;//TODO Can use boolean?
+                return true;
             }
         }
         return false;
@@ -33,16 +39,18 @@ public class IntArray {
             this.elements[index] = element;
             return true;
         } else {
-            return false;//TODO Can use boolean?
+            return false;
         }
     }
 
-    public Integer getElement(int index) {
-        if (index < elements.length && index >= 0) {
-            return elements[index];
-        } else {
-            return -1; //TODO Can return -1?
+    public OptionalInt getElement(int index) {
+        if (elements[index] == null || index < elements.length && index >= 0) {
+            return OptionalInt.empty();
         }
+        if (index < elements.length && index >= 0) {
+            return OptionalInt.of(elements[index]);
+        }
+        return OptionalInt.empty();
     }
 
     public boolean remove(int index) {
@@ -50,25 +58,8 @@ public class IntArray {
             this.elements[index] = null;
             return true;
         } else {
-            return false; //TODO Can use boolean?
+            return false;
         }
-    }
-
-    public boolean remove(Integer element) {
-        if (element == null) {
-            for (int index = 0; index < elements.length; index++)
-                if (elements[index] == null) {
-                    return true;
-                }
-        } else {
-            for (int index = 0; index < elements.length; index++) {
-                if ((element.equals(elements[index]))) {
-                    elements[index] = null;
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public int numberNotNullElements() {
@@ -85,7 +76,6 @@ public class IntArray {
         return elements.length;
     }
 
-    @Override //TODO Can use 2 equals at once
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -134,10 +124,9 @@ public class IntArray {
             sb.append(String.valueOf(elements[i]));
             if (i != elements.length - 1) {
                 sb.append(", ");
-            } else {
-                sb.append("]");
             }
         }
+        sb.append("]");
         sb.append('}');
         return sb.toString();
     }
