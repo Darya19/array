@@ -44,13 +44,14 @@ public class IntArray {
     }
 
     public OptionalInt getElement(int index) {
-        if (elements[index] == null || index < elements.length && index >= 0) {
+        if (elements[index] == null) {
             return OptionalInt.empty();
         }
         if (index < elements.length && index >= 0) {
             return OptionalInt.of(elements[index]);
+        } else {
+            return OptionalInt.empty();
         }
-        return OptionalInt.empty();
     }
 
     public boolean remove(int index) {

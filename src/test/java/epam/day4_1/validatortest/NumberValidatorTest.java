@@ -1,4 +1,4 @@
-package epam.day4.validatortest;
+package epam.day4_1.validatortest;
 
 import com.epam.day4_1.validator.NumberValidator;
 import org.testng.annotations.BeforeClass;
@@ -12,7 +12,7 @@ public class NumberValidatorTest {
     NumberValidator validator;
 
     @BeforeClass
-        public void setUp() {
+    public void setUp() {
         validator = new NumberValidator();
     }
 

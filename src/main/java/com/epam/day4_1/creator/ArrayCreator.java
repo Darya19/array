@@ -13,10 +13,9 @@ public class ArrayCreator {
         NumberValidator validator = new NumberValidator();
         int count = 0;
         Random random = new Random();
-        int number = random.nextInt(10);
-        IntArray array = new IntArray(number);
+        IntArray array = new IntArray(10);
         while (array.size() > array.numberNotNullElements()) {
-            number = random.nextInt(1000);
+            int number = random.nextInt(1000);
             if (validator.validateNumber(number)) {
                 array.set(count, number);
                 count++;

@@ -1,4 +1,4 @@
-package epam.day4.readertest;
+package epam.day4_1.readertest;
 
 import com.epam.day4_1.exception.CustomException;
 import com.epam.day4_1.reader.ReaderFromFile;

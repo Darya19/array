@@ -1,4 +1,4 @@
-package epam.day4.parsertest;
+package epam.day4_1.parsertest;
 
 import com.epam.day4_1.exception.CustomException;
 import com.epam.day4_1.parser.NumberParser;

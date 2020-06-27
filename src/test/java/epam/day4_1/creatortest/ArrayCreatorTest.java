@@ -1,4 +1,4 @@
-package epam.day4.creatortest;
+package epam.day4_1.creatortest;
 
 import com.epam.day4_1.creator.ArrayCreator;
 import com.epam.day4_1.entity.IntArray;
@@ -30,7 +30,7 @@ public class ArrayCreatorTest {
         IntArray expectedArray1 = new IntArray(2);
         expectedArray1.set(0, 10);
         expectedArray1.set(1, 996);
-        IntArray expectedArray2 = new IntArray(10);
+        IntArray expectedArray2 = new IntArray(0);
         return new Object[][]{{values1, expectedArray1}, {values, expectedArray}, {values2, expectedArray2}};
     }
 

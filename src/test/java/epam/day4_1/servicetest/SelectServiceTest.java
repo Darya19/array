@@ -1,8 +1,8 @@
-package epam.day4.servicetest;
+package epam.day4_1.servicetest;
 
 import com.epam.day4_1.entity.IntArray;
 import com.epam.day4_1.exception.CustomException;
-import com.epam.day4_1.service.SortService;
+import com.epam.day4_1.service.SelectService;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -11,15 +11,13 @@ import java.util.Optional;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
-import static org.testng.annotations.Optional.*;
 
-public class SortServiceTest {
-
-    SortService service;
+public class SelectServiceTest {
+    SelectService service;
 
     @BeforeClass
     public void setUp() {
-        service = new SortService();
+        service = new SelectService();
     }
 
     @DataProvider(name = "array - 2")
@@ -27,32 +25,26 @@ public class SortServiceTest {
         IntArray array = new IntArray(5);
         array.add(17);
         array.add(176);
-        array.add(426);
+        array.add(8);
         array.add(917);
         array.add(299);
         IntArray array1 = new IntArray(4);
         array1.add(187);
-        array1.add(276);
-        array1.add(1);
+        array1.add(7);
+        array1.add(31);
         array1.add(99);
-        IntArray expectedArray = new IntArray(5);
+        IntArray expectedArray = new IntArray(1);
         expectedArray.set(0, 17);
-        expectedArray.set(1, 176);
-        expectedArray.set(2, 299);
-        expectedArray.set(3, 426);
-        expectedArray.set(4, 917);
-        IntArray expectedArray1 = new IntArray(4);
-        expectedArray1.set(0, 1);
-        expectedArray1.set(1, 99);
-        expectedArray1.set(2, 187);
-        expectedArray1.set(3, 276);
+        IntArray expectedArray1 = new IntArray(2);
+        expectedArray1.set(0, 7);
+        expectedArray1.set(1, 31);
         return new Object[][]{{array, expectedArray}, {array1, expectedArray1}};
     }
 
     @Test(dataProvider = "array - 2")
-    public void bubbleSortPositiveTest(IntArray array, IntArray expectedArray) {
+    public void selectPrimeNumbersPositiveTest(IntArray array, IntArray expectedArray) {
         try {
-           Optional<IntArray> actualArray = service.bubbleSort(array);
+            Optional<IntArray> actualArray = service.selectPrimeNumbers(array);
             assertEquals(actualArray, Optional.of(expectedArray));
         } catch (CustomException e) {
             fail();
@@ -60,10 +52,10 @@ public class SortServiceTest {
     }
 
     @Test
-    public void bubbleSortEmptyArrayTest() {
+    public void selectPrimeNumbersEmptyArrayTest() {
         try {
             IntArray array = new IntArray(0);
-            Optional<IntArray> actualArray = service.bubbleSort(array);
+            Optional<IntArray> actualArray = service.selectPrimeNumbers(array);
             assertEquals(actualArray, Optional.empty());
         } catch (CustomException e) {
             fail();
@@ -71,10 +63,10 @@ public class SortServiceTest {
     }
 
     @Test
-    public void bubbleSortArrayOfNullElementsTest() {
+    public void selectPrimeNumbersArrayOfNullElementsTest() {
         try {
             IntArray array = new IntArray(3);
-            Optional<IntArray> actualArray = service.bubbleSort(array);
+            Optional<IntArray> actualArray = service.selectPrimeNumbers(array);
             assertEquals(actualArray, Optional.empty());
         } catch (CustomException e) {
             fail();
@@ -82,15 +74,23 @@ public class SortServiceTest {
     }
 
     @Test(expectedExceptions = CustomException.class, expectedExceptionsMessageRegExp = "array is null")
-    public void bubbleSortArrayIsNullTest() throws CustomException {
+    public void selectPrimeNumbersArrayIsNullTest() throws CustomException {
         IntArray array = null;
-        service.bubbleSort(array);
+        service.selectPrimeNumbers(array);
     }
 
-    @Test(dataProvider = "array - 2")
-    public void shuttleSortPositiveTest(IntArray array, IntArray expectedArray) {
+    @Test
+    public void selectFibonacciNumbersPositiveTest() {
+        IntArray array = new IntArray(4);
+        array.set(0, 456);
+        array.set(1, 987);
+        array.set(2, 610);
+        array.set(3, 569);
+        IntArray expectedArray = new IntArray(2);
+        expectedArray.set(0, 987);
+        expectedArray.set(1, 610);
         try {
-            Optional<IntArray> actualArray = service.shuttleSort(array);
+            Optional<IntArray> actualArray = service.selectFibonacciNumbers(array);
             assertEquals(actualArray, Optional.of(expectedArray));
         } catch (CustomException e) {
             fail();
@@ -98,10 +98,10 @@ public class SortServiceTest {
     }
 
     @Test
-    public void shuttleSortEmptyArrayTest() {
+    public void selectFibonacciNumbersEmptyArrayTest() {
         try {
             IntArray array = new IntArray(0);
-            Optional<IntArray> actualArray = service.shuttleSort(array);
+            Optional<IntArray> actualArray = service.selectFibonacciNumbers(array);
             assertEquals(actualArray, Optional.empty());
         } catch (CustomException e) {
             fail();
@@ -109,10 +109,10 @@ public class SortServiceTest {
     }
 
     @Test
-    public void shuttleSortArrayOfNullElementsTest() {
+    public void selectFibonacciNumbersArrayOfNullElementsTest() {
         try {
             IntArray array = new IntArray(3);
-            Optional<IntArray> actualArray = service.shuttleSort(array);
+            Optional<IntArray> actualArray = service.selectFibonacciNumbers(array);
             assertEquals(actualArray, Optional.empty());
         } catch (CustomException e) {
             fail();
@@ -120,15 +120,22 @@ public class SortServiceTest {
     }
 
     @Test(expectedExceptions = CustomException.class, expectedExceptionsMessageRegExp = "array is null")
-    public void shuttleSortArrayIsNullTest() throws CustomException {
+    public void selectFibonacciNumbersArrayIsNullTest() throws CustomException {
         IntArray array = null;
-        service.shuttleSort(array);
+        service.selectFibonacciNumbers(array);
     }
 
-    @Test(dataProvider = "array - 2")
-    public void insertionSortPositiveTest(IntArray array, IntArray expectedArray) {
+    @Test
+    public void findNumbersWithThreeDifferentDigitsPositiveTest() {
+        IntArray array = new IntArray(4);
+        array.set(0, 455);
+        array.set(1, 987);
+        array.set(2, 611);
+        array.set(3, 566);
+        IntArray expectedArray = new IntArray(1);
+        expectedArray.set(0, 987);
         try {
-            Optional<IntArray> actualArray = service.insertionSort(array);
+            Optional<IntArray> actualArray = service.findNumbersWithThreeDifferentDigits(array);
             assertEquals(actualArray, Optional.of(expectedArray));
         } catch (CustomException e) {
             fail();
@@ -136,10 +143,10 @@ public class SortServiceTest {
     }
 
     @Test
-    public void insertionSortEmptyArrayTest() {
+    public void findNumbersWithThreeDifferentDigitsEmptyArrayTest() {
         try {
             IntArray array = new IntArray(0);
-            Optional<IntArray> actualArray = service.insertionSort(array);
+            Optional<IntArray> actualArray = service.findNumbersWithThreeDifferentDigits(array);
             assertEquals(actualArray, Optional.empty());
         } catch (CustomException e) {
             fail();
@@ -147,10 +154,10 @@ public class SortServiceTest {
     }
 
     @Test
-    public void insertionSortArrayOfNullElementsTest() {
+    public void findNumbersWithThreeDifferentDigitsArrayOfNullElementsTest() {
         try {
             IntArray array = new IntArray(3);
-            Optional<IntArray> actualArray = service.insertionSort(array);
+            Optional<IntArray> actualArray = service.findNumbersWithThreeDifferentDigits(array);
             assertEquals(actualArray, Optional.empty());
         } catch (CustomException e) {
             fail();
@@ -158,8 +165,8 @@ public class SortServiceTest {
     }
 
     @Test(expectedExceptions = CustomException.class, expectedExceptionsMessageRegExp = "array is null")
-    public void insertionSortArrayIsNullTest() throws CustomException {
+    public void findNumbersWithThreeDifferentDigitsArrayIsNullTest() throws CustomException {
         IntArray array = null;
-        service.insertionSort(array);
+        service.findNumbersWithThreeDifferentDigits(array);
     }
 }
